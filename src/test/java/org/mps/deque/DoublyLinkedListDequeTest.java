@@ -147,12 +147,96 @@ class DoublyLinkedListDequeTest {
         }
 
         @Nested
-        @DisplayName("after inserting a elemnt at the end")
-        class AfterInsertingEnd{
+        @DisplayName("after inserting a element at the end")
+        class AfterInsertingFirstEnd{
 
             @BeforeEach
             void insertEnd(){
-                doublyLinkedListDeque.append(1);
+                doublyLinkedListDeque.append(2);
+            }
+
+            @Test
+            @DisplayName("the first element is the last")
+            void firstSameLast(){
+                int expectedValue = doublyLinkedListDeque.first();
+
+                int obtainedValue = doublyLinkedListDeque.last();
+
+                assertEquals(expectedValue,obtainedValue);
+            }
+
+            @Test
+            @DisplayName("isn't empty")
+            void endEmpty(){
+                int expectedValue = 1;
+
+                int obtainedValue = doublyLinkedListDeque.size();
+
+                assertEquals(expectedValue,obtainedValue);
+            }
+
+            @Test
+            @DisplayName("after deleting first is empty")
+            void endDeleteFirst(){
+                int expectedValue = 0;
+
+                doublyLinkedListDeque.deleteFirst();
+                int obtainedValue = doublyLinkedListDeque.size();
+
+                assertEquals(expectedValue,obtainedValue);
+            }
+
+            @Test
+            @DisplayName("after deleting last is empty")
+            void endDeleteLast(){
+                int expectedValue = 0;
+
+                doublyLinkedListDeque.deleteLast();
+                int obtainedValue = doublyLinkedListDeque.size();
+
+                assertEquals(expectedValue,obtainedValue);
+            }
+
+            @Nested
+            @DisplayName("and at the front")
+            class AfterInsertingFront{
+                @BeforeEach
+                void insertFront(){
+                    doublyLinkedListDeque.prepend(1);
+                }
+
+                @Test
+                @DisplayName("after deleting first isn't empty")
+                void frontDeleteFirst(){
+                    int expectedValue = 1;
+
+                    doublyLinkedListDeque.deleteFirst();
+                    int obtainedValue = doublyLinkedListDeque.size();
+
+                    assertEquals(expectedValue,obtainedValue);
+                }
+
+                @Test
+                @DisplayName("after deleting first isn't empty")
+                void endDeleteFirst(){
+                    int expectedValue = 1;
+
+                    doublyLinkedListDeque.deleteFirst();
+                    int obtainedValue = doublyLinkedListDeque.size();
+
+                    assertEquals(expectedValue,obtainedValue);
+                }
+
+                @Test
+                @DisplayName("after deleting last isn't empty")
+                void endDeleteLast(){
+                    int expectedValue = 1;
+
+                    doublyLinkedListDeque.deleteLast();
+                    int obtainedValue = doublyLinkedListDeque.size();
+
+                    assertEquals(expectedValue,obtainedValue);
+                }
             }
         }
     }

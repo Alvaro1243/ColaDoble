@@ -7,7 +7,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Nested;
 
 
-class DequeNodeTest {
+class   DequeNodeTest {
     DequeNode<Integer> node1 = new DequeNode<Integer>(1, null, null);
     DequeNode<Integer> node2 = new DequeNode<Integer>(2, null, null);
     DequeNode<Integer> node3 = new DequeNode<Integer>(3, null, null);
