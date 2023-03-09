@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+@author Álvaro Bermúdez Gámez
+ */
 @DisplayName("A DoublyLinkedListDeque")
 class DoublyLinkedListDequeTest {
     DoublyLinkedListDeque<Integer> doublyLinkedListDeque;
