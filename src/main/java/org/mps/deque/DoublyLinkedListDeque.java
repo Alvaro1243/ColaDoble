@@ -16,9 +16,6 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     public void prepend(T value) {
         if(size==0){
             first = new DequeNode<>(value,null,last);
-        }else if (size==1){
-            DequeNode node = new DequeNode<>(value,null,first);
-            first = node;
         }else{
             DequeNode node = new DequeNode<>(value,null,first);
             first = node;
@@ -47,6 +44,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         }else {
             first = first.getNext();
         }
+        size--;
     }
 
     @Override
@@ -54,8 +52,11 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         if(size==0){
             throw new DoubleEndedQueueException("The deque is empty");
         }else if(size==1){
+            first = null;
+        }else{
             last = last.getPrevious();
         }
+        size--;
     }
 
     @Override
@@ -80,12 +81,6 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public int size() {
-        DequeNode aux = first;
-        int size = 0;
-        while (aux!=null){
-            size++;
-            aux = aux.getNext();
-        }
         return size;
     }
 }
