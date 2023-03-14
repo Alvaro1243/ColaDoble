@@ -9,6 +9,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /*
 @author Álvaro Bermúdez Gámez
+The nested ("when new") represents the test cases when a DoublyLinkedListDeque is empty
+        - When tried to delete at any side throw exception
+        - When tried to peek at any side throw exception
+        - The structure is empty
+The nested ("after inserting an element at the end") represents the test cases after inserting in an empty structure
+an element at the end
+        - The structure isn't empty
+        - After deleting the first or the last is empty
+        - The first element is the last element
+        The nested ("and at the front") continue this cases after inserting at the front of the structure
+                - When deleting isn't empty
+                - The first element is different of the last
+The nested ("after inserting an element at the front") represents the test cases after inserting in an empty structure
+an element at the front
+        - The structure isn't empty
+        - After deleting the first or the last is empty
+        - The first element is the last element
+        The nested ("and at the end") continue this cases after inserting at the end of the structure
+                - When deleting isn't empty
+                - The first element is different of the last
  */
 @DisplayName("A DoublyLinkedListDeque")
 class DoublyLinkedListDequeTest {
@@ -220,7 +240,7 @@ class DoublyLinkedListDequeTest {
                 }
 
                 @Test
-                @DisplayName("after deleting first isn't empty")
+                @DisplayName("after deleting last isn't empty")
                 void endDeleteFirst(){
                     int expectedValue = 1;
 
@@ -231,14 +251,13 @@ class DoublyLinkedListDequeTest {
                 }
 
                 @Test
-                @DisplayName("after deleting last isn't empty")
-                void endDeleteLast(){
-                    int expectedValue = 1;
+                @DisplayName("the first element is different from the last")
+                void FirstNotSameLast(){
+                    int expectedValue = doublyLinkedListDeque.first();
 
-                    doublyLinkedListDeque.deleteLast();
-                    int obtainedValue = doublyLinkedListDeque.size();
+                    int obtainedValue = doublyLinkedListDeque.last();
 
-                    assertEquals(expectedValue,obtainedValue);
+                    assertNotEquals(expectedValue,obtainedValue);
                 }
             }
         }
