@@ -1,5 +1,6 @@
 package org.mps.deque;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -104,6 +105,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     }
 
     // NEW OPERATIONS
+    @Override
     public T get(int index){
         if (index < 0 || index >= size){
             throw new IndexOutOfBoundsException("Index out of range");
@@ -122,6 +124,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         return aux.getItem();
     }
 
+    @Override
     public boolean contains(T value){
         DequeNode<T> aux = first;
 
@@ -135,6 +138,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         return false;
     }
 
+    @Override
     public void remove(T value){
         DequeNode<T> current = first;
         DequeNode<T> previous = null;
@@ -168,7 +172,32 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         }
     }
 
+    @Override
     public void sort(Comparator<? super T> comparator){
+        if (size == 0) {
+            return;
+        }
 
+        // Crear un array temporal
+        T[] array = (T[]) new Object[size];
+
+        // Add elements of the listDeque to the array
+        DequeNode<T> current = first;
+        int index = 0;
+        while (current != null) {
+            array[index++] = current.getItem();
+            current = current.getNext();
+        }
+
+        // Sort the array
+        Arrays.sort(array, comparator);
+
+        // Change the values between the array and the list
+        current = first;
+        index = 0;
+        while (current != null) {
+            current.setItem(array[index++]);
+            current = current.getNext();
+        }
     }
 }
