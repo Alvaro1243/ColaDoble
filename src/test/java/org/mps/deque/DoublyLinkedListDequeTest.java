@@ -76,6 +76,18 @@ class DoublyLinkedListDequeTest {
             assertThrows(DoubleEndedQueueException.class,()->doublyLinkedListDeque.deleteLast());
         }
 
+        @Test
+        @DisplayName("throws IndexOutOfBoundsException when getting index 0")
+        void indexEmptyDeque(){
+            assertThrows(IndexOutOfBoundsException.class, () -> doublyLinkedListDeque.get(0));
+        }
+
+        @Test
+        @DisplayName("throws IndexOutOfBoundsException when requested index -1")
+        void getInvalidNegativeIndex(){
+            assertThrows(IndexOutOfBoundsException.class, () -> doublyLinkedListDeque.get(-1));
+        }
+
         @Nested
         @DisplayName("after inserting a element at the front")
         class AfterInsertingFront{
@@ -126,6 +138,14 @@ class DoublyLinkedListDequeTest {
                 assertEquals(expectedValue,obtainedValue);
             }
 
+            @Test
+            @DisplayName("throws IndexOutOfBoundsException when requested index 1")
+            void getInvalidPositiveIndex(){
+                assertThrows(IndexOutOfBoundsException.class, () -> doublyLinkedListDeque.get(1));
+            }
+
+
+
             @Nested
             @DisplayName("and at the end")
             class AfterInsertingEnd{
@@ -161,16 +181,38 @@ class DoublyLinkedListDequeTest {
                     int expectedValue = 1;
 
                     doublyLinkedListDeque.deleteLast();
-                    int obtainedValue = doublyLinkedListDeque.size();
+                    int actualValue = doublyLinkedListDeque.size();
 
-                    assertEquals(expectedValue,obtainedValue);
+                    assertEquals(expectedValue,actualValue);
+                }
+
+                @Test
+                @DisplayName("the first element has the index 0")
+                void firstElementIndex0(){
+                    int expectedValue = doublyLinkedListDeque.first();
+
+                    int index = 0;
+                    int actualValue = doublyLinkedListDeque.get(index);
+
+                    assertEquals(expectedValue,actualValue);
+                }
+
+                @Test
+                @DisplayName("the last element has the index 1")
+                void lastElementIndex1(){
+                    int expectedValue = doublyLinkedListDeque.last();
+
+                    int index = 1;
+                    int actualValue = doublyLinkedListDeque.get(index);
+
+                    assertEquals(expectedValue,actualValue);
                 }
             }
 
         }
 
         @Nested
-        @DisplayName("after inserting a element at the end")
+        @DisplayName("after inserting a element (2) at the end")
         class AfterInsertingFirstEnd{
 
             @BeforeEach
@@ -218,6 +260,26 @@ class DoublyLinkedListDequeTest {
                 int obtainedValue = doublyLinkedListDeque.size();
 
                 assertEquals(expectedValue,obtainedValue);
+            }
+
+            @Test
+            @DisplayName("contains the element 2")
+            void containsElement(){
+                boolean expectedValue = true;
+
+                boolean actualValue = doublyLinkedListDeque.contains(2);
+
+                assertEquals(expectedValue,actualValue);
+            }
+
+            @Test
+            @DisplayName("not contains the element 3")
+            void notContainsElement(){
+                boolean expectedValue = false;
+
+                boolean actualValue = doublyLinkedListDeque.contains(3);
+
+                assertEquals(expectedValue,actualValue);
             }
 
             @Nested

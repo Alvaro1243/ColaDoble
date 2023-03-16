@@ -113,7 +113,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         DequeNode<T> aux = first;
         int i = 0;
         boolean found = false;
-        while(aux != null && !found){
+        while(!found){
             if (i == index){
                 found = true;
             } else {
