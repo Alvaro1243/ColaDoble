@@ -145,7 +145,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         boolean found = false;
 
         if (contains(value)){
-            while(current != null && !found){
+            while(!found){
                 if (Objects.equals(current.getItem(),value)){
                     // Value found
                     found = true;

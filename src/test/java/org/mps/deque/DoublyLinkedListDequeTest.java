@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
@@ -13,22 +15,34 @@ The nested ("when new") represents the test cases when a DoublyLinkedListDeque i
         - When tried to delete at any side throw exception
         - When tried to peek at any side throw exception
         - The structure is empty
-The nested ("after inserting an element at the end") represents the test cases after inserting in an empty structure
+        - Throws IndexOutOfBoundsException when index is greater than size-1 or negative
+        - The methods sort and remove does nothing to a empty structure
+The nested ("after inserting an element (2) at the end") represents the test cases after inserting in an empty structure
 an element at the end
+        - Contains the element 2
+        - Not contains the element 3
         - The structure isn't empty
         - After deleting the first or the last is empty
         - The first element is the last element
-        The nested ("and at the front") continue this cases after inserting at the front of the structure
+        The nested ("and at the front element 1") continue this cases after inserting at the front of the structure
                 - When deleting isn't empty
                 - The first element is different of the last
-The nested ("after inserting an element at the front") represents the test cases after inserting in an empty structure
+The nested ("after inserting an element (1) at the front") represents the test cases after inserting in an empty structure
 an element at the front
+        - Removing the element 1 makes the structure empty
+        - throws IndexOutOfBoundsException when requested index 1
         - The structure isn't empty
         - After deleting the first or the last is empty
         - The first element is the last element
-        The nested ("and at the end") continue this cases after inserting at the end of the structure
+        The nested ("and at the end element (2)") continue this cases after inserting at the end of the structure
                 - When deleting isn't empty
                 - The first element is different of the last
+                - The last element (2) has index 1
+                - After removing element 2 the size of the structure is 1
+                - The first element (1) has index 0
+                The nested ("and after inserting element (3) at the end") continue this cases after inserting at the end of the structure
+                    - After removing the element at the middle (2) the size is 2
+                    - Sorting the structure in descending order
  */
 @DisplayName("A DoublyLinkedListDeque")
 class DoublyLinkedListDequeTest {
@@ -88,8 +102,33 @@ class DoublyLinkedListDequeTest {
             assertThrows(IndexOutOfBoundsException.class, () -> doublyLinkedListDeque.get(-1));
         }
 
+        @Test
+        @DisplayName("removes does nothing")
+        void removeEmpty(){
+            int expectedValue = 0;
+
+            doublyLinkedListDeque.remove(1);
+            int actualValue = doublyLinkedListDeque.size();
+
+            assertEquals(expectedValue,actualValue);
+        }
+
+        @Test
+        @DisplayName("sort does nothing")
+        void sortEmpty(){
+            int[] expectedValue = new int[0];
+
+            doublyLinkedListDeque.sort(Collections.reverseOrder());
+            int[] actualValue = new int[0];
+            for (int i = 0; i<doublyLinkedListDeque.size();i++){
+                actualValue[i] = doublyLinkedListDeque.get(i);
+            }
+
+            assertArrayEquals(expectedValue,actualValue);
+        }
+
         @Nested
-        @DisplayName("after inserting a element at the front")
+        @DisplayName("after inserting a element (1) at the front")
         class AfterInsertingFront{
 
             @BeforeEach
@@ -144,10 +183,20 @@ class DoublyLinkedListDequeTest {
                 assertThrows(IndexOutOfBoundsException.class, () -> doublyLinkedListDeque.get(1));
             }
 
+            @Test
+            @DisplayName("when removing the element 1 is empty")
+            void remove1OfDeque(){
+                int expectedValue = 0;
+
+                doublyLinkedListDeque.remove(1);
+                int actualValue = doublyLinkedListDeque.size();
+
+                assertEquals(expectedValue,actualValue);
+            }
 
 
             @Nested
-            @DisplayName("and at the end")
+            @DisplayName("and at the end element (2)")
             class AfterInsertingEnd{
                 @BeforeEach
                 void insertEnd(){
@@ -206,6 +255,52 @@ class DoublyLinkedListDequeTest {
                     int actualValue = doublyLinkedListDeque.get(index);
 
                     assertEquals(expectedValue,actualValue);
+                }
+
+                @Test
+                @DisplayName("when removing element (2) the size is 1")
+                void removeElemnt2End(){
+                    int expectedValue = 1;
+
+                    doublyLinkedListDeque.remove(2);
+                    int actualValue = doublyLinkedListDeque.size();
+
+                    assertEquals(expectedValue,actualValue);
+                }
+
+                @Nested
+                @DisplayName("and after inserting element (3) at the end")
+                class Inserting3Elements{
+
+                    @BeforeEach
+                    void insertEnd(){
+                        doublyLinkedListDeque.append(3);
+                    }
+
+                    @Test
+                    @DisplayName("when removing the middle element 2")
+                    void removeMiddleElement(){
+                        int expectedValue = 2;
+
+                        doublyLinkedListDeque.remove(2);
+                        int actualValue = doublyLinkedListDeque.size();
+
+                        assertEquals(expectedValue,actualValue);
+                    }
+
+                    @Test
+                    @DisplayName("in descending order")
+                    void sortDecliningOrder(){
+                        int[] expectedValue = {3,2,1};
+
+                        doublyLinkedListDeque.sort(Collections.reverseOrder());
+                        int[] actualValue = new int[3];
+                        for (int i = 0; i<doublyLinkedListDeque.size();i++){
+                            actualValue[i] = doublyLinkedListDeque.get(i);
+                        }
+
+                        assertArrayEquals(expectedValue,actualValue);
+                    }
                 }
             }
 
@@ -283,7 +378,7 @@ class DoublyLinkedListDequeTest {
             }
 
             @Nested
-            @DisplayName("and at the front")
+            @DisplayName("and at the front element (1)")
             class AfterInsertingFront{
                 @BeforeEach
                 void insertFront(){
