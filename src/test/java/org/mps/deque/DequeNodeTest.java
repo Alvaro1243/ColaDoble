@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Nested;
  *  - when calling isNotATerminalNode method, then return false => testIsNotATerminalNodeFalse
  *
  * Given a dequeNode with an item and next DequeNode (no previous DequeNode)
- *  - when calling isNotATerminalNode method, then return false =>
+ *  - when calling isNotATerminalNode method, then return false => testIsNotATerminalNodeFalse
  */
 
 @DisplayName("A DequeNode")
